@@ -13,11 +13,16 @@ export default function Facebox({ box, imageRef }) {
       const scaleX = imageRef.clientWidth / imageRef.naturalWidth;
       const scaleY = imageRef.clientHeight / imageRef.naturalHeight;
 
-      const width = box.width * scaleX;
-      const height = box.height * scaleY;
+      const [x1, x2] =
+        box.x < box.width ? [box.x, box.width] : [box.width, box.x];
+      const [y1, y2] =
+        box.y < box.height ? [box.y, box.height] : [box.height, box.y];
 
-      const top = box.y * scaleY;
-      const left = box.x * scaleX;
+      const width = (x2 - x1) * scaleX;
+      const height = (y2 - y1) * scaleY;
+
+      const top = y1 * scaleY;
+      const left = x1 * scaleX;
 
       setBoxDimensions({ width, height, top, left });
     }
